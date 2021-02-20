@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encrypter</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script> 
+</head>
+<body>
+    <div class="hero">
+        <div class="container">
+            <div class="button-box" id="button-box">
+                <div id="btn" class="btn"></div>
+                <button id="encryptButton" onclick="encryptbtn()" type="button" class="toggle-btn">Encrypt</button>
+                <button id="decryptButton" onclick="decryptbtn()"  type="button" class="toggle-btn">Decrypt</button>
+            </div>
+            <form id="encrypt" class="input-group">
+                <input id="text" type="text" class="input-field" placeholder="Text">
+                <button onclick="encrypt()" type="button" class="encryptBtn">Encrypt</button>
+                <input id="encrypted" type="text" class="input-field" placeholder="Encrypted Text">
+            </form>
+            <form id="decrypt" class="input-group">
+                <input id="encrypted2" type="text" class="input-field" placeholder="Encrypted Text">
+                <button onclick="decrypt()" type="button" class="encryptBtn">Decrypt</button>
+                <input id="text2" type="text" class="input-field" placeholder="Text">
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let encryptButton = document.getElementById('encrypt')
+        let decryptButton = document.getElementById('decrypt')
+        let buttonBox = document.getElementById('btn')
+
+        function decryptbtn() {
+            encryptButton.style.left = "-400px"
+            decryptButton.style.left = "50px"
+            buttonBox.style.left = "110px"
+        }
+
+
+        function encryptbtn() {
+            encryptButton.style.left = "50px"
+            decryptButton.style.left = "450px"
+            buttonBox.style.left = "0px"
+        }
+
+        function encrypt() {
+            let text = document.getElementById('text').value
+            if (text === "") {
+                return
+            } else {
+                let encrypted = CryptoJS.AES.encrypt(text, 'secret key 123');
+                document.getElementById('encrypted').value = encrypted
+            }
+
+        }
+
+        function decrypt() {
+            let encryptedtext = document.getElementById('encrypted2').value
+            if (encryptedtext === "") {
+                return
+            } else {
+                let decrypted = CryptoJS.AES.decrypt(encryptedtext, 'secret key 123').toString(CryptoJS.enc.Utf8)
+                document.getElementById('text2').value = decrypted
+            }
+
+        }
+    </script>
+
+</body>
+</html>
